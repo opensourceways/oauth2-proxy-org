@@ -379,7 +379,7 @@ func getPreferredUsernameHeader() Header {
 		Values: []HeaderValue{
 			{
 				ClaimSource: &ClaimSource{
-					Claim: "preferred_username",
+					Claim: "username",
 				},
 			},
 		},
@@ -413,7 +413,7 @@ func getXAuthRequestHeaders() []Header {
 			Values: []HeaderValue{
 				{
 					ClaimSource: &ClaimSource{
-						Claim: "preferred_username",
+						Claim: "username",
 					},
 				},
 			},

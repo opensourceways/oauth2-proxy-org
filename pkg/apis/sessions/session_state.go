@@ -146,7 +146,7 @@ func (s *SessionState) GetClaim(claim string) []string {
 		groups := make([]string, len(s.Groups))
 		copy(groups, s.Groups)
 		return groups
-	case "preferred_username":
+	case "username":
 		return []string{s.PreferredUsername}
 	default:
 		return []string{}
