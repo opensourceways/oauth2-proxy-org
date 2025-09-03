@@ -1,6 +1,7 @@
 package requests
 
 import (
+	"crypto/tls"
 	"net/http"
 
 	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/version"
@@ -28,4 +29,22 @@ func setDefaultUserAgent(header http.Header, userAgent string) {
 	if header != nil && len(header.Values("User-Agent")) == 0 {
 		header.Set("User-Agent", userAgent)
 	}
+}
+
+type insecureUserAgentTransport struct {
+	next            http.RoundTripper
+	userAgent       string
+	TLSClientConfig *tls.Config
+}
+
+var CustomHTTPClient = &http.Client{Transport: &insecureUserAgentTransport{
+	next:            DefaultTransport,
+	userAgent:       "oauth2-proxy/" + version.VERSION,
+	TLSClientConfig: &tls.Config{InsecureSkipVerify: false},
+}}
+
+func (t *insecureUserAgentTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	r := req.Clone(req.Context())
+	setDefaultUserAgent(r.Header, t.userAgent)
+	return t.next.RoundTrip(r)
 }
