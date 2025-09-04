@@ -69,9 +69,8 @@ LABEL org.opencontainers.image.licenses=MIT \
       org.opencontainers.image.documentation=https://oauth2-proxy.github.io/oauth2-proxy/ \
       org.opencontainers.image.source=https://github.com/opensourceways/oauth2-proxy \
       org.opencontainers.image.url=https://quay.io/oauth2-proxy/oauth2-proxy \
-      org.opencontainers.image.title=oauth2-proxy \
-      org.opencontainers.image.version=${VERSION}
-
+      org.opencontainers.image.title=oauth2-proxy
+      # org.opencontainers.image.version=${VERSION}
 USER 2000:2000
 
 ENTRYPOINT ["/bin/oauth2-proxy"]
